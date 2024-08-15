@@ -13,7 +13,7 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-const uri = "mongodb+srv://assingment12:57XBCL4ql0uKw9O5@cluster0.bpfhrgu.mongodb.net/?retryWrites=true&w=majority";
+const uri = "mongodb+srv://emedical:O0tpu3o5SoATlqHo@cluster0.0evib.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 // const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.swu9d.mongodb.net/?retryWrites=true&w=majority`;
 
 
@@ -35,11 +35,11 @@ async function run() {
   
 
 // -------------connect  bd--------------
-const productCollection = client.db("tech").collection("product");
-const homeproductCollection = client.db("tech").collection("homeproduct");
-const cartCollection=client.db("tech").collection("carts");
-const userCollection=client.db("tech").collection("users");
-const paymentCollection = client.db("tech").collection("payments");
+const productCollection = client.db("emedicine").collection("product");
+const homeproductCollection = client.db("emedicine").collection("homeproduct");
+const cartCollection=client.db("emedicine").collection("carts");
+const userCollection=client.db("emedicine").collection("users");
+const paymentCollection = client.db("emedicine").collection("payments");
 
 
  // -----------jwt related api---------------
@@ -295,9 +295,9 @@ const revenue=result.length>0?result[0].totalRevenue:0;
 run().catch(console.dir);
 
 app.get('/', (req, res) => {
-    res.send('tech is sitting on')
+    res.send('emedicine is sitting on')
   })
   
   app.listen(port, () => {
-    console.log(`tech is sitting on port ${port}`);
+    console.log(`emedicine is sitting on port ${port}`);
   })
