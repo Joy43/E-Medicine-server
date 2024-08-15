@@ -135,16 +135,25 @@ app.post('/users', async (req, res) => {
     
 // -----------------------------------  product & SEARCH-------------------------------------
 app.get('/product', async (req, res) => {
-  const filter = req.query; // Assuming you're getting the filter from the query parameters
+  const filter = req.query;
+
+  // Check if the search parameter is present and is a string
+  const searchQuery = filter.search ? filter.search.toString() : '';
 
   const query = {
-    name: { $regex: filter.search, $options: 'i' }
+    name: { $regex: searchQuery, $options: 'i' } 
   };
 
-  const cursor = productCollection.find(query);
-  const result = await cursor.toArray();
-  res.send(result);
+  try {
+    const cursor = productCollection.find(query);
+    const result = await cursor.toArray();
+    res.send(result);
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    res.status(500).send({ message: 'Internal Server Error' });
+  }
 });
+
 
 app.get('/product/:id', async (req, res) => {
   const id = req.params.id;
